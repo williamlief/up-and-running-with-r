@@ -1,10 +1,32 @@
+library(tidyverse)
+library(broom)
+
 seda <- read_csv("data-clean/seda.csv")
 
-seda %>% View()
+View(seda)
+
+seda %>% ggplot(aes(x = test_score)) + geom_histogram()
+    
+
+
+p <- seda %>% ggplot(aes(x = test_score)) + geom_histogram()
+
+seda %>% ggplot(aes(x = learn_rate)) + geom_histogram()
+
+seda %>% ggplot(aes(x = test_score, y = learn_rate)) + geom_point() + facet_wrap(~ level)
+
+seda %>% ggplot(aes(y = test_score, x = perecd)) + geom_point(alpha = 0.1, aes(color = level))
+
+model <- lm(test_score ~ perecd, data = seda)
+
+# add in a plot
+
+# add in model with urbancity
+
 
 model <- lm(test_score ~ urbanicity + level + perecd, data = seda)
 
-broom::tidy(model) # can output this as csv
+tidy(model) # can output this as csv
 
 seda %>% 
     ggplot(aes(x = learn_rate, y = test_score, color = urbanicity)) +
@@ -18,3 +40,9 @@ seda %>%
     geom_point() +
     geom_path(aes(group = urbanicity)) +
     theme(axis.text.x = element_text(angle = 90))
+
+# add in output
+ggsave("output/klintiscool.png")
+
+model %>% tidy() %>% write_csv("output/model.csv")
+

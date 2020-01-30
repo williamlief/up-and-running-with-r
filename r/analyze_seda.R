@@ -77,10 +77,6 @@ seda %>%
     geom_smooth(se = FALSE)
 
 seda %>%
-    ggplot(aes(x = urbanicity, y = perecd)) +
-    geom_boxplot()
-
-seda %>%
     group_by(cut_learn_rate = cut_interval(learn_rate, 20), urbanicity) %>%
     summarize(mean_test_score = mean(test_score)) %>%
     ggplot(aes(x = cut_learn_rate, y = mean_test_score, color = urbanicity)) +
@@ -88,6 +84,9 @@ seda %>%
     geom_path(aes(group = urbanicity)) +
     theme(axis.text.x = element_text(angle = 90))
 
+seda %>%
+    ggplot(aes(x = urbanicity, y = perecd)) +
+    geom_boxplot()
 
 # add in output
 ggsave("output/wildplot.png")

@@ -5,44 +5,93 @@ seda <- read_csv("data-clean/seda.csv")
 
 View(seda)
 
-seda %>% ggplot(aes(x = test_score)) + geom_histogram()
-    
+# One variable: Histograms
+
+seda %>%
+    ggplot(aes(x = test_score)) + 
+    geom_histogram()
+
+p <- seda %>%
+    ggplot(aes(x = learn_rate)) +
+    geom_histogram()
+
+p
+
+p + ggtitle('histogram of learn_rate')
+
+######################################################
+### Now make a histogram for the 'perecd' variable ###
+######################################################
 
 
-p <- seda %>% ggplot(aes(x = test_score)) + geom_histogram()
+# Two variables: scatter plots
 
-seda %>% ggplot(aes(x = learn_rate)) + geom_histogram()
+seda %>%
+    ggplot(aes(x = test_score, y = learn_rate)) +
+    geom_point()
 
-seda %>% ggplot(aes(x = test_score, y = learn_rate)) + geom_point() + facet_wrap(~ level)
+####################################################
+### Make a scatter plot of test score vs. perecd ###
+####################################################
 
-seda %>% ggplot(aes(y = test_score, x = perecd)) + geom_point(alpha = 0.1, aes(color = level))
+
+# Three variables, two ways:
+
+seda %>%
+    ggplot(aes(x = test_score, y = learn_rate)) +
+    geom_point(alpha = 0.2) +
+    facet_wrap(~ level)
+
+seda %>%
+    ggplot(aes(y = test_score, x = perecd)) +
+    geom_point(alpha = 0.2, aes(color = level))
+
+###############################################
+### Make your own plot including urbanicity ###
+###############################################
+
+
+# Regressions!
 
 model <- lm(test_score ~ perecd, data = seda)
+tidy(model)
 
-# add in a plot
 
-# add in model with urbancity
+####################################
+### Make a model with urbancity! ###
+####################################
 
 
 model <- lm(test_score ~ urbanicity + level + perecd, data = seda)
 
-tidy(model) # can output this as csv
+tidy(model)
 
-seda %>% 
+seda %>%
+    ggplot(aes(y = test_score, x = perecd)) +
+    geom_point(alpha=0.2) +
+    geom_smooth(method='lm')
+
+seda %>%
     ggplot(aes(x = learn_rate, y = test_score, color = urbanicity)) +
-    geom_point(alpha = 0.05) +
-    geom_smooth()
+    geom_point(alpha = 0.1) +
+    geom_smooth(se = FALSE)
 
-seda %>% 
-    group_by(cut_learn_rate = cut_interval(learn_rate, 20), urbanicity) %>% 
-    summarize(mean_test_score = mean(test_score)) %>% 
+seda %>%
+    ggplot(aes(x = urbanicity, y = perecd)) +
+    geom_boxplot()
+
+seda %>%
+    group_by(cut_learn_rate = cut_interval(learn_rate, 20), urbanicity) %>%
+    summarize(mean_test_score = mean(test_score)) %>%
     ggplot(aes(x = cut_learn_rate, y = mean_test_score, color = urbanicity)) +
     geom_point() +
     geom_path(aes(group = urbanicity)) +
     theme(axis.text.x = element_text(angle = 90))
 
+
 # add in output
-ggsave("output/klintiscool.png")
+ggsave("output/wildplot.png")
 
-model %>% tidy() %>% write_csv("output/model.csv")
-
+model %>%
+    tidy() %>%
+    write_csv("output/model.csv")

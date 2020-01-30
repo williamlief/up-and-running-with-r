@@ -5,7 +5,9 @@ seda <- read_csv("data-clean/seda.csv")
 
 View(seda)
 
-# One variable: Histograms
+# One variable plots:
+
+## continuous variables
 
 seda %>%
     ggplot(aes(x = test_score)) + 
@@ -19,20 +21,37 @@ p
 
 p + ggtitle('histogram of learn_rate')
 
-######################################################
-### Now make a histogram for the 'perecd' variable ###
-######################################################
+## categorical variables
+
+seda %>%
+    ggplot(aes(x = urbanicity)) +
+    geom_bar()
 
 
-# Two variables: scatter plots
+#################################################
+### Now make a plot for the 'perecd' variable ###
+#################################################
+
+
+# Two variables: two ways
+
+## both continuous
 
 seda %>%
     ggplot(aes(x = test_score, y = learn_rate)) +
     geom_point()
 
-####################################################
-### Make a scatter plot of test score vs. perecd ###
-####################################################
+## one continuous, one categorical
+
+seda %>%
+    ggplot(aes(x = urbanicity, y = perecd)) +
+    geom_boxplot()
+
+
+
+############################################
+### Make a plot of test score vs. perecd ###
+############################################
 
 
 # Three variables, two ways:
@@ -46,9 +65,9 @@ seda %>%
     ggplot(aes(y = test_score, x = perecd)) +
     geom_point(alpha = 0.2, aes(color = level))
 
-###############################################
-### Make your own plot including urbanicity ###
-###############################################
+########################################
+### Make a plot including urbanicity ###
+########################################
 
 
 # Regressions!
@@ -83,10 +102,6 @@ seda %>%
     geom_point() +
     geom_path(aes(group = urbanicity)) +
     theme(axis.text.x = element_text(angle = 90))
-
-seda %>%
-    ggplot(aes(x = urbanicity, y = perecd)) +
-    geom_boxplot()
 
 # add in output
 ggsave("output/wildplot.png")

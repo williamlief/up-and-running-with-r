@@ -1,7 +1,7 @@
 library(tidyverse)
 library(broom)
 
-seda <- read_csv("data-clean/seda.csv")
+seda <- read_rds("data-clean/seda.rds")
 
 View(seda)
 

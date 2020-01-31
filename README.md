@@ -12,7 +12,7 @@ will cover the following topics:
 
 - [SEDA Data]()
 
-- [Rstudio Cloud](https://rstudio.cloud/project/885106)
+- [Rstudio Cloud SEDA Project](https://rstudio.cloud/project/885106)
 
 # Additional Resources
 ## Resources at Stanford

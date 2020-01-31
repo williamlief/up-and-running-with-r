@@ -37,7 +37,8 @@ core <- core_raw %>%
   select(ncessch, urbanicity, level, perecd) %>% 
   mutate(ncessch = as.numeric(ncessch), 
          urbanicity = as.factor(urbanicity), 
-         level = as.factor(level))
+         level = as.factor(level),
+         high_ecd = if_else(perecd > mean(perecd, na.rm = T), 1, 0))
 
 glimpse(core)
 

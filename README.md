@@ -10,7 +10,7 @@ will cover the following topics:
 
 # Session links
 
-- [SEDA Data]()
+- [SEDA Data](https://www.dropbox.com/sh/oc0a0pn8s7pqe4v/AADKKwz6Z9IvOFsgBaopaYLZa?dl=0)
 
 - [Rstudio Cloud SEDA Project](https://rstudio.cloud/project/885106)
 

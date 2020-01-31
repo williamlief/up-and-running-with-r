@@ -1,8 +1,10 @@
 library(tidyverse)
 library(tidylog)
-library(readr)
 
-# Read in seda data
+#####################
+# Read in seda data #
+#####################
+
 seda_raw <- read_csv("data-raw/seda_school_pool_gcs_v30.csv")
 glimpse(seda_raw)
 
@@ -11,9 +13,16 @@ seda <- seda_raw %>%
   rename("test_score" = mn_avg_ol, 
          "learn_rate" = mn_grd_ol) %>% 
   filter(stateabb == "CA") %>% 
-  drop_na()
+  drop_na() # row-wise deletion
 
-# Read in covariates
+glimpse(seda)
+
+######################
+# Read in covariates (CORE_89_comp.csv)
+# 1) read data       
+# 2) select ncessch, urbanicity, level, perecd, other?
+######################
+
 core_raw <- read_csv("data-raw/CORE_89_comp.csv")
 glimpse(core_raw)
 
@@ -23,11 +32,19 @@ core <- core_raw %>%
          urbanicity = as.factor(urbanicity), 
          level = as.factor(level))
 
-# Merge the data
+glimpse(core)
+
+##################
+# Merge the data #
+##################
+
 seda <- seda %>% 
   left_join(core, by = c("ncessch")) %>% 
   select(-stateabb)
 
-# save data
+#############
+# save data #
+#############
+
 write_rds(seda, "data-clean/seda.rds")
 write_csv(seda, "data-clean/seda.csv")

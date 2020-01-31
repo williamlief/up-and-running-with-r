@@ -3,8 +3,8 @@
 This workshop will go through the process of using R for academic research. We 
 will cover the following topics: 
 
-- Import raw data into R
 - Organize a project directory
+- Import raw data into R
 - Write code to transform raw data into clean data
 - Use the clean data to write a reproducible report including models and visualizations share the code and report with colleagues (we'll talk about but not show how to use GitHub)
 
@@ -15,6 +15,13 @@ will cover the following topics:
 - [Rstudio Cloud SEDA Project](https://rstudio.cloud/project/885106)
 
 # Additional Resources
+
+## Setting up R on your computer
+
+- [Download R](https://mirror.las.iastate.edu/CRAN/)
+- [Download RStudio](https://rstudio.com/products/rstudio/download/#download)
+- Install some packages! See `r/install.packages` for the packages we use in this session
+
 ## Resources at Stanford
 
 - [GSE IT](https://gse-it.stanford.edu/)
@@ -30,6 +37,7 @@ will cover the following topics:
   - [The R Cookbook](http://www.cookbook-r.com/): Useful 'recipes' for common tasks in R
 - Making Plots and Charts
   - [R Graphics Cookbook](https://r-graphics.org/): Recipes for making charts and plots
+  - [ggplot: Elegant Graphics for Data Analysis](https://ggplot2-book.org/) Online book for using ggplot
   - [R Graph Gallery](https://www.r-graph-gallery.com/): A collection of r graphs and the code to make them
 - Advanced Tools
   - [Happy Git and GitHub for the useR](https://happygitwithr.com/index.html): A guide to using version control

@@ -5,8 +5,15 @@ library(tidylog)
 # Read in seda data #
 #####################
 
+
 seda_raw <- read_csv("data-raw/seda_school_pool_gcs_v30.csv")
-glimpse(seda_raw)
+spec(seda_raw) # How are the variables being parsed? - first 1000 rows
+
+seda_raw_2 <- read_csv("data-raw/seda_school_pool_gcs_v30.csv", 
+                     col_types = cols(schoolname = col_double()
+                     ))
+problems(seda_raw_2)
+
 
 seda <- seda_raw %>% 
   select(ncessch, stateabb, mn_avg_ol, mn_grd_ol) %>% 
@@ -41,6 +48,11 @@ glimpse(core)
 seda <- seda %>% 
   left_join(core, by = c("ncessch")) %>% 
   select(-stateabb)
+
+
+
+# Other important joins are 'full', 'inner', and 'right'
+# Watch out for row inflation - many to one, 
 
 #############
 # save data #
